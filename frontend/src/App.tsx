@@ -43,15 +43,15 @@ function App() {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-8">
         <header className="flex flex-col gap-2 border-b border-zinc-800 pb-6">
           <Badge className="w-fit border border-amber-500/20 bg-amber-500/10 text-amber-300 hover:bg-amber-500/10">
-            - Memorial Luto Curitiba -
+             Memorial Luto Curitiba 
           </Badge>
 
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
-              Dashboard de Velórios
+              Painel de velórios
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-zinc-400">
-              Acompanhamento em tempo real dos velórios em andamento no Memorial
+              Acompanhamento das salas, horários e locais de sepultamento.
               Luto Curitiba
             </p>
           </div>
