@@ -3,12 +3,20 @@ const helmet = require("helmet");
 const cors = require("cors");
 require("dotenv").config();
 
+if (!process.env.DATABASE_URL) {
+  console.warn("[WARN] DATABASE_URL não está definida. Rotas de banco podem falhar até configurar a variável.");
+}
+
 const veloriosRoutes = require("./modules/velorios/velorios.routes");
 
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  })
+);
 app.use(express.json());
 
 // Health check
