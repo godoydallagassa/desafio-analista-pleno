@@ -2,7 +2,7 @@
 
 **URL do Frontend (Vercel):** [https://dashboard-velorios-luto-curitiba.vercel.app](https://dashboard-velorios-luto-curitiba.vercel.app)
 
-**URL da API Backend (Render):** [https://api-velorios-luto-curitiba.onrender.com](https://api-velorios-luto-curitiba.onrender.com)
+**URL da API Backend (Render):** [https://luto-curitiba-api-6egc.onrender.com](https://luto-curitiba-api-6egc.onrender.com)
 
 Olá! Agradecemos o seu interesse em fazer parte do nosso time de Tecnologia da Informação. Este desafio foi desenhado para conhecermos melhor suas habilidades técnicas, arquiteturais e de resolução de problemas práticos.
 
