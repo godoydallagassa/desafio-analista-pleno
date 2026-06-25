@@ -1,9 +1,5 @@
 # Desafio Técnico: Dashboard de Atendimentos - Luto Curitiba
 
-**URL do Frontend (Vercel):** [https://dashboard-velorios-luto-curitiba.vercel.app](https://dashboard-velorios-luto-curitiba.vercel.app)
-
-**URL da API Backend (Render):** [https://luto-curitiba-api-6egc.onrender.com](https://luto-curitiba-api-6egc.onrender.com)
-
 Olá! Agradecemos o seu interesse em fazer parte do nosso time de Tecnologia da Informação. Este desafio foi desenhado para conhecermos melhor suas habilidades técnicas, arquiteturais e de resolução de problemas práticos.
 
 ## 1. Sobre a Luto Curitiba
