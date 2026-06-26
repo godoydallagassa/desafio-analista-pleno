@@ -5,8 +5,8 @@ const listarVelorios = async (registroObito) => {
     SELECT
       p.nome || ' ' || p.sobrenome AS nome_completo,
       v.sala_velorio,
-      v.inicio_velorio,
-      v.inicio_sepultamento,
+      to_char(v.inicio_velorio, 'YYYY-MM-DD"T"HH24:MI:SS') AS inicio_velorio,
+      to_char(v.inicio_sepultamento, 'YYYY-MM-DD"T"HH24:MI:SS') AS inicio_sepultamento,
       v.local_sepultamento,
       r.funeraria,
       v.id
@@ -42,8 +42,8 @@ const buscarVelorioPorId = async (id) => {
     SELECT
       p.nome || ' ' || p.sobrenome AS nome_completo,
       v.sala_velorio,
-      v.inicio_velorio,
-      v.inicio_sepultamento,
+      to_char(v.inicio_velorio, 'YYYY-MM-DD"T"HH24:MI:SS') AS inicio_velorio,
+      to_char(v.inicio_sepultamento, 'YYYY-MM-DD"T"HH24:MI:SS') AS inicio_sepultamento,
       v.local_sepultamento,
       r.funeraria,
       v.id

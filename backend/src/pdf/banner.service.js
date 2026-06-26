@@ -1,8 +1,26 @@
 const PDFDocument = require("pdfkit");
 const veloriosService = require("../modules/velorios/velorios.service");
 
+const extrairPartes = (timestamp) => {
+  const match = String(timestamp).match(
+    /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/
+  );
+
+  if (!match) return null;
+
+  const [, ano, mes, dia, hora, minuto] = match;
+  return { ano, mes, dia, hora, minuto };
+};
+
 const formatarDataHora = (timestamp) => {
   if (!timestamp) return "—";
+
+  const partes = extrairPartes(timestamp);
+
+  if (partes) {
+    return `${partes.dia}/${partes.mes}/${partes.ano}, ${partes.hora}:${partes.minuto}`;
+  }
+
   const data = new Date(timestamp);
   return data.toLocaleString("pt-BR", {
     day: "2-digit",
@@ -10,6 +28,7 @@ const formatarDataHora = (timestamp) => {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "America/Sao_Paulo",
   });
 };
 
@@ -32,7 +51,6 @@ const gerarBanner = async (req, res, next) => {
 
     doc.pipe(res);
 
-    // Cabeçalho
     doc.fontSize(20).font("Helvetica-Bold").text("Memorial Luto Curitiba", {
       align: "center",
     });
@@ -44,7 +62,6 @@ const gerarBanner = async (req, res, next) => {
 
     doc.moveDown(1.5);
 
-    // Linha separadora
     doc
       .moveTo(60, doc.y)
       .lineTo(535, doc.y)
@@ -53,11 +70,16 @@ const gerarBanner = async (req, res, next) => {
 
     doc.moveDown(1.5);
 
-    // Dados do velório
     const campos = [
       { label: "Falecido", valor: dados.nome_completo },
-      { label: "Início do Velório", valor: formatarDataHora(dados.inicio_velorio) },
-      { label: "Início do Sepultamento", valor: formatarDataHora(dados.inicio_sepultamento) },
+      {
+        label: "Início do Velório",
+        valor: formatarDataHora(dados.inicio_velorio),
+      },
+      {
+        label: "Início do Sepultamento",
+        valor: formatarDataHora(dados.inicio_sepultamento),
+      },
       { label: "Local do Sepultamento", valor: dados.local_sepultamento },
       { label: "Funerária Responsável", valor: dados.funeraria },
     ];
