@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Velorio } from "@/types/velorio";
+import { formatarDataHora } from "@/utils/formatDate";
 
 interface DashboardSummaryProps {
   velorios: Velorio[];
@@ -10,19 +11,22 @@ export default function DashboardSummary({ velorios }: DashboardSummaryProps) {
     velorios.map((v) => v.sala_velorio).filter(Boolean)
   ).size;
 
+  const agora = new Date();
+
   const proximoSepultamento = velorios
-    .filter((v) => v.inicio_sepultamento)
+    .filter(
+      (v) =>
+        v.inicio_sepultamento &&
+        new Date(v.inicio_sepultamento).getTime() >= agora.getTime()
+    )
     .sort(
       (a, b) =>
         new Date(a.inicio_sepultamento).getTime() -
         new Date(b.inicio_sepultamento).getTime()
     )[0];
 
-  const horaProximoSepultamento = proximoSepultamento
-    ? new Date(proximoSepultamento.inicio_sepultamento).toLocaleString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
+  const dataHoraProximoSepultamento = proximoSepultamento
+    ? formatarDataHora(proximoSepultamento.inicio_sepultamento)
     : "—";
 
   return (
@@ -56,7 +60,7 @@ export default function DashboardSummary({ velorios }: DashboardSummaryProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <strong className="text-lg">{horaProximoSepultamento}</strong>
+          <strong className="text-lg">{dataHoraProximoSepultamento}</strong>
         </CardContent>
       </Card>
 
