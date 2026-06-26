@@ -40,20 +40,15 @@ function App() {
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-50">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-8">
-        <header className="flex flex-col gap-2 border-b border-zinc-800 pb-6">
-          <Badge className="w-fit border border-amber-500/20 bg-amber-500/10 text-amber-300 hover:bg-amber-500/10">
-             Memorial Luto Curitiba 
-          </Badge>
-
-          <div>
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-5">
+        <header className="border-b border-zinc-800 pb-4">
+          <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-3xl font-bold tracking-tight">
               Painel de velórios
             </h1>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-400">
-              Acompanhamento das salas, horários e locais de sepultamento.
-              Luto Curitiba
-            </p>
+            <Badge className="w-fit border border-amber-500/20 bg-amber-500/10 text-amber-300 hover:bg-amber-500/10">
+              Memorial Luto Curitiba
+            </Badge>
           </div>
         </header>
 
