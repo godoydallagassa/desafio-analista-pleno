@@ -21,6 +21,14 @@ const listarVelorios = async (registroObito) => {
   if (registroObito) {
     query += ` AND r.numero_registro ILIKE $1`;
     params.push(`%${registroObito}%`);
+  } else {
+    query += `
+      AND v.inicio_velorio <= (NOW() AT TIME ZONE 'America/Sao_Paulo')
+      AND (
+        v.fim_velorio IS NULL
+        OR v.fim_velorio >= (NOW() AT TIME ZONE 'America/Sao_Paulo')
+      )
+    `;
   }
 
   query += ` ORDER BY v.inicio_velorio ASC`;
