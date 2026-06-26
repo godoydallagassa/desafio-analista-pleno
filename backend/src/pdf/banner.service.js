@@ -85,4 +85,4 @@ const gerarBanner = async (req, res, next) => {
   }
 };
 
-module.exports = { gerarBanner };
+module.exports = { gerarBanner, formatarHora };

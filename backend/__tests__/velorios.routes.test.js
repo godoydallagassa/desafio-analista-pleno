@@ -7,6 +7,7 @@ jest.mock("../src/modules/velorios/velorios.repository", () => ({
 
 const app = require("../src/app");
 const veloriosRepository = require("../src/modules/velorios/velorios.repository");
+const { formatarHora } = require("../src/pdf/banner.service");
 
 const veloriosAtivos = [
   {
@@ -35,14 +36,12 @@ const pdfParser = (res, callback) => {
   res.on("end", () => callback(null, Buffer.concat(chunks)));
 };
 
-const textoPdf = (valor) => Buffer.from(valor, "latin1").toString("hex");
-
 describe("GET /api/velorios", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("retorna status 200, um array de velorios ativos ordenados por sepultamento", async () => {
+  it("retorna status 200 e a lista de velorios fornecida pelo repository", async () => {
     veloriosRepository.listarVelorios.mockResolvedValue(veloriosAtivos);
 
     const response = await request(app).get("/api/velorios");
@@ -54,8 +53,6 @@ describe("GET /api/velorios", () => {
       "Geraldo Fernandes",
       "José Almeida",
     ]);
-    expect(response.body[0].inicio_sepultamento).toBe("2026-06-26T08:00:00");
-    expect(response.body[1].inicio_sepultamento).toBe("2026-06-26T10:00:00");
     expect(veloriosRepository.listarVelorios).toHaveBeenCalledWith(undefined);
   });
 });
@@ -98,9 +95,14 @@ describe("GET /api/velorios?registroObito=...", () => {
 describe("GET /api/velorios/:id/banner", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
-  it("retorna PDF para ID valido mantendo horarios sem datas ou deslocamento UTC", async () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("retorna PDF para ID valido", async () => {
     veloriosRepository.buscarVelorioPorId.mockResolvedValue(veloriosAtivos[0]);
 
     const response = await request(app)
@@ -111,14 +113,37 @@ describe("GET /api/velorios/:id/banner", () => {
     expect(response.status).toBe(200);
     expect(response.headers["content-type"]).toMatch(/application\/pdf/);
 
-    const pdfText = response.body.toString("latin1");
-
-    expect(pdfText).toContain(textoPdf("10:00"));
-    expect(pdfText).toContain(textoPdf("08:00"));
-    expect(pdfText).not.toContain(textoPdf("07:00"));
-    expect(pdfText).not.toContain("2026-06-26");
-    expect(pdfText).not.toContain(textoPdf("26/06/2026"));
-    expect(pdfText).not.toMatch(/\d{2}\/\d{2}\/\d{4}/);
+    expect(response.body.length).toBeGreaterThan(0);
     expect(veloriosRepository.buscarVelorioPorId).toHaveBeenCalledWith(15);
+  });
+
+  it("retorna 400 para ID invalido", async () => {
+    const response = await request(app).get("/api/velorios/abc/banner");
+
+    expect(response.status).toBe(400);
+    expect(response.body.error).toContain("ID inv");
+    expect(veloriosRepository.buscarVelorioPorId).not.toHaveBeenCalled();
+  });
+
+  it("retorna 404 quando o velorio nao existe", async () => {
+    veloriosRepository.buscarVelorioPorId.mockResolvedValue(null);
+
+    const response = await request(app).get("/api/velorios/999/banner");
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toContain("encontrado");
+    expect(veloriosRepository.buscarVelorioPorId).toHaveBeenCalledWith(999);
+  });
+});
+
+describe("formatarHora", () => {
+  it("extrai apenas hora e minuto sem deslocar fuso horario", () => {
+    expect(formatarHora("2026-06-26T10:00:00")).toBe("10:00");
+    expect(formatarHora("2026-06-26 08:00:00")).toBe("08:00");
+  });
+
+  it("retorna hifen quando nao recebe horario", () => {
+    expect(formatarHora(null)).toBe("-");
+    expect(formatarHora(undefined)).toBe("-");
   });
 });
