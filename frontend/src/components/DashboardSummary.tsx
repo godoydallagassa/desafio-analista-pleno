@@ -29,48 +29,60 @@ export default function DashboardSummary({ velorios }: DashboardSummaryProps) {
     : "-";
 
   return (
-    <section className="grid gap-4 md:grid-cols-4">
-      <Card className="border-zinc-800 bg-zinc-900/80 text-zinc-50">
+    <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <Card
+        size="sm"
+        className="border-zinc-800 bg-zinc-900/80 text-zinc-50"
+      >
         <CardHeader>
-          <CardTitle className="text-sm font-medium text-zinc-400">
+          <CardTitle className="text-xs font-medium text-zinc-400">
             Velórios em andamento
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <strong className="text-3xl">{velorios.length}</strong>
+          <strong className="text-2xl">{velorios.length}</strong>
         </CardContent>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/80 text-zinc-50">
+      <Card
+        size="sm"
+        className="border-zinc-800 bg-zinc-900/80 text-zinc-50"
+      >
         <CardHeader>
-          <CardTitle className="text-sm font-medium text-zinc-400">
+          <CardTitle className="text-xs font-medium text-zinc-400">
             Salas em uso
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <strong className="text-3xl">{salasEmUso}</strong>
+          <strong className="text-2xl">{salasEmUso}</strong>
         </CardContent>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/80 text-zinc-50">
+      <Card
+        size="sm"
+        className="border-zinc-800 bg-zinc-900/80 text-zinc-50"
+      >
         <CardHeader>
-          <CardTitle className="text-sm font-medium text-zinc-400">
+          <CardTitle className="text-xs font-medium text-zinc-400">
             Próximo sepultamento
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <strong className="text-lg">{horaProximoSepultamento}</strong>
+          <strong className="text-2xl">{horaProximoSepultamento}</strong>
         </CardContent>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/80 text-zinc-50">
+      <Card
+        size="sm"
+        className="border-zinc-800 bg-zinc-900/80 text-zinc-50"
+      >
         <CardHeader>
-          <CardTitle className="text-sm font-medium text-zinc-400">
+          <CardTitle className="text-xs font-medium text-zinc-400">
             Total listado
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <strong className="text-3xl">{velorios.length}</strong>
+          <strong className="text-2xl">{velorios.length}</strong>
         </CardContent>
       </Card>
     </section>

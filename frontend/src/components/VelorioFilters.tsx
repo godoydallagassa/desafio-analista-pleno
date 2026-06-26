@@ -21,10 +21,10 @@ export default function VelorioFilters({
   };
 
   return (
-    <section className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
+    <section className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-3">
       <div className="flex flex-col gap-3 md:flex-row md:items-end">
         <div className="flex-1">
-          <label className="mb-2 block text-sm font-medium text-zinc-300">
+          <label className="mb-1.5 block text-sm font-medium text-zinc-300">
             Registro de Óbito
           </label>
           <Input
@@ -32,13 +32,13 @@ export default function VelorioFilters({
             value={registroObito}
             onChange={(e) => onRegistroObitoChange(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="border-zinc-700 bg-zinc-950 text-zinc-50 placeholder:text-zinc-500"
+            className="h-9 border-zinc-700 bg-zinc-950 text-zinc-50 placeholder:text-zinc-500"
           />
         </div>
 
         <Button
           onClick={onBuscar}
-          className="bg-zinc-50 text-zinc-950 hover:bg-zinc-200"
+          className="w-full bg-zinc-50 text-zinc-950 hover:bg-zinc-200 md:w-auto"
         >
           Buscar
         </Button>
@@ -46,7 +46,7 @@ export default function VelorioFilters({
         <Button
           onClick={onLimpar}
           variant="outline"
-          className="border-zinc-700 bg-transparent text-zinc-200 hover:bg-zinc-800 hover:text-zinc-50"
+          className="w-full border-zinc-700 bg-transparent text-zinc-200 hover:bg-zinc-800 hover:text-zinc-50 md:w-auto"
         >
           Limpar
         </Button>

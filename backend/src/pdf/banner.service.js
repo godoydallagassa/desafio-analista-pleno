@@ -48,25 +48,6 @@ const gerarBanner = async (req, res, next) => {
 
     doc.pipe(res);
 
-    doc.fontSize(20).font("Helvetica-Bold").text("Memorial Luto Curitiba", {
-      align: "center",
-    });
-
-    doc.moveDown(0.5);
-    doc.fontSize(14).font("Helvetica").text("Banner de Velório", {
-      align: "center",
-    });
-
-    doc.moveDown(1.5);
-
-    doc
-      .moveTo(60, doc.y)
-      .lineTo(535, doc.y)
-      .strokeColor("#999")
-      .stroke();
-
-    doc.moveDown(1.5);
-
     const campos = [
       { label: "Falecido", valor: dados.nome_completo },
       {
