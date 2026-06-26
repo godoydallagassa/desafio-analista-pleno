@@ -31,7 +31,7 @@ const listarVelorios = async (registroObito) => {
     `;
   }
 
-  query += ` ORDER BY v.inicio_velorio ASC`;
+  query += ` ORDER BY v.inicio_sepultamento ASC`;
 
   const result = await pool.query(query, params);
   return result.rows;

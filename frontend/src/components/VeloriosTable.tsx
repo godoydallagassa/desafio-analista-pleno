@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Velorio } from "@/types/velorio";
-import { formatarDataHora, formatarHora } from "@/utils/formatDate";
+import { formatarHora } from "@/utils/formatDate";
 import { baixarBannerPdf } from "@/services/veloriosApi";
 
 interface VeloriosTableProps {
@@ -79,7 +79,7 @@ export default function VeloriosTable({
                 {velorio.nome_completo}
               </TableCell>
               <TableCell>{velorio.sala_velorio || "—"}</TableCell>
-              <TableCell>{formatarDataHora(velorio.inicio_velorio)}</TableCell>
+              <TableCell>{formatarHora(velorio.inicio_velorio)}</TableCell>
               <TableCell>
                 {velorio.inicio_sepultamento
                   ? formatarHora(velorio.inicio_sepultamento)

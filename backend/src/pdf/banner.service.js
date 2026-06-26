@@ -8,24 +8,21 @@ const extrairPartes = (timestamp) => {
 
   if (!match) return null;
 
-  const [, ano, mes, dia, hora, minuto] = match;
-  return { ano, mes, dia, hora, minuto };
+  const [, , , , hora, minuto] = match;
+  return { hora, minuto };
 };
 
-const formatarDataHora = (timestamp) => {
-  if (!timestamp) return "—";
+const formatarHora = (timestamp) => {
+  if (!timestamp) return "-";
 
   const partes = extrairPartes(timestamp);
 
   if (partes) {
-    return `${partes.dia}/${partes.mes}/${partes.ano}, ${partes.hora}:${partes.minuto}`;
+    return `${partes.hora}:${partes.minuto}`;
   }
 
   const data = new Date(timestamp);
   return data.toLocaleString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
     timeZone: "America/Sao_Paulo",
@@ -74,11 +71,11 @@ const gerarBanner = async (req, res, next) => {
       { label: "Falecido", valor: dados.nome_completo },
       {
         label: "Início do Velório",
-        valor: formatarDataHora(dados.inicio_velorio),
+        valor: formatarHora(dados.inicio_velorio),
       },
       {
         label: "Início do Sepultamento",
-        valor: formatarDataHora(dados.inicio_sepultamento),
+        valor: formatarHora(dados.inicio_sepultamento),
       },
       { label: "Local do Sepultamento", valor: dados.local_sepultamento },
       { label: "Funerária Responsável", valor: dados.funeraria },

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Velorio } from "@/types/velorio";
-import { formatarDataHora, timestampParaData } from "@/utils/formatDate";
+import { formatarHora, timestampParaData } from "@/utils/formatDate";
 
 interface DashboardSummaryProps {
   velorios: Velorio[];
@@ -24,9 +24,9 @@ export default function DashboardSummary({ velorios }: DashboardSummaryProps) {
         timestampParaData(b.inicio_sepultamento)!.getTime()
     )[0];
 
-  const dataHoraProximoSepultamento = proximoSepultamento
-    ? formatarDataHora(proximoSepultamento.inicio_sepultamento)
-    : "—";
+  const horaProximoSepultamento = proximoSepultamento
+    ? formatarHora(proximoSepultamento.inicio_sepultamento)
+    : "-";
 
   return (
     <section className="grid gap-4 md:grid-cols-4">
@@ -59,7 +59,7 @@ export default function DashboardSummary({ velorios }: DashboardSummaryProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <strong className="text-lg">{dataHoraProximoSepultamento}</strong>
+          <strong className="text-lg">{horaProximoSepultamento}</strong>
         </CardContent>
       </Card>
 
