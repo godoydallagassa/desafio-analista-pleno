@@ -37,6 +37,7 @@ const gerarBanner = async (req, res, next) => {
     const doc = new PDFDocument({
       size: "A4",
       layout: "portrait",
+      compress: process.env.NODE_ENV !== "test",
       margins: { top: 60, bottom: 60, left: 60, right: 60 },
     });
 
